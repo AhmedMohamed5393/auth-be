@@ -4,13 +4,13 @@ import { AuthService } from '../auth.service';
 import { PasswordService } from '@shared/services/password.service';
 import { JWTAuthService } from '@shared/services/jwt-auth.service';
 import { RegisterDto, LoginDto } from '../dto/index.dto';
-import { UserDocument } from '../schemas/user.schema';
+import { User } from '../schemas/user.schema';
 import { Model } from 'mongoose';
 import { getModelToken } from '@nestjs/mongoose';
 
 describe('AuthService', () => {
     let authService: AuthService;
-    let userModel:  Model<UserDocument>;
+    let userModel:  Model<User>;
     let passwordService: PasswordService;
     let jwtAuthService: JWTAuthService;
 
@@ -42,7 +42,7 @@ describe('AuthService', () => {
         }).compile();
 
         authService = module.get<AuthService>(AuthService);
-        userModel = module.get<Model<UserDocument>>(Model<UserDocument>);
+        userModel = module.get<Model<User>>(Model<User>);
         passwordService = module.get<PasswordService>(PasswordService);
         jwtAuthService = module.get<JWTAuthService>(JWTAuthService);
     });

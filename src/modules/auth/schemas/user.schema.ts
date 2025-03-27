@@ -1,10 +1,11 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
-
-export type UserDocument = User & Document;
+import { v4 as uuidv4 } from "uuid";
+import { Prop, SchemaFactory, Schema } from "@nestjs/mongoose";
 
 @Schema({ timestamps: true })
 export class User {
+  @Prop({ required: true, default: () => uuidv4() })
+  _id: string;
+
   @Prop({ required: true })
   name: string;
 

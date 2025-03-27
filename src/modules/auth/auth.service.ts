@@ -4,12 +4,12 @@ import { Model } from 'mongoose';
 import { LoginDto, RegisterDto } from './dto/index.dto';
 import { PasswordService } from '@shared/services/password.service';
 import { JWTAuthService } from '@shared/services/jwt-auth.service';
-import { User, UserDocument } from './schemas/user.schema';
+import { User } from './schemas/user.schema';
 
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectModel(User.name) private userModel: Model<UserDocument>,
+    @InjectModel(User.name) private userModel: Model<User>,
     private readonly passwordService: PasswordService,
     private readonly jwtAuthService: JWTAuthService,
   ) {}
@@ -53,7 +53,7 @@ export class AuthService {
     return await this.getEssentialResponse(user);
   }
 
-  private async getEssentialResponse(user: Partial<UserDocument>) {
+  private async getEssentialResponse(user: Partial<User>) {
     const { _id, name, email } = user;
     const token = await this.jwtAuthService.generateToken({ id: _id as string });
 
